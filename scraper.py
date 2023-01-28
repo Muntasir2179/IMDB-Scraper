@@ -13,7 +13,7 @@ try:
 
     with open('imdb_250.csv', 'w', encoding='utf8', newline='') as f:
         csvWriter = writer(f)
-        header = ['Rank', 'Name', 'Year Released']
+        header = ['Rank', 'Name', 'Year Released', 'Rating']
         csvWriter.writerow(header)
 
         for movie in movies:
@@ -22,8 +22,9 @@ try:
             name = movie.find('td', class_='titleColumn').a.text
             year_release = movie.find('td', class_='titleColumn').span.text.replace(
                 '(', '').replace(')', '')
+            rating = movie.find('td', class_='ratingColumn').strong.text
 
-            data = [rank, name, year_release]
+            data = [rank, name, year_release, rating]
             csvWriter.writerow(data)
 
 except Exception as e:
